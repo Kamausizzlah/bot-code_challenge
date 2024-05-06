@@ -1,24 +1,35 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import { Routes, Route } from "react-router-dom";
+import BotsPage from "./components/BotsPage";
+import BotSpecs from "./components/BotSpecs";
 
 function App() {
+  const  [bots, setBots] = useState([]);
+  const [botArmy, setBotArmy] = useState([]);
+  const addToArmy = (bot) => {
+    if (!botArmy.some((armyBot) => armyBot.id === bot.id)) {
+      setBotArmy([...botArmy, bot]);
+    }
+  };
+
+  const removeFromArmy = (botId) => {
+    const updatedBotArmy = botArmy.filter((bot) => bot.id !== botId);
+    setBotArmy(updatedBotArmy);
+  };
+
+  useEffect(() => {
+    fetch("http://localhost:3001/bots")
+    .then(response => response.json())
+    .then(data => setBots(data));
+  },[botArmy]);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   
+      <Routes>
+        <Route path="/" element={<BotsPage bots = {bots} botArmy={botArmy} addToArmy = {addToArmy} removeFromArmy={removeFromArmy}/>} />
+        <Route path="/bot/:id" element={<BotSpecs addToArmy = {addToArmy} />} />
+      </Routes>
+  
   );
 }
 
