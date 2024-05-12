@@ -18,7 +18,7 @@ function BotSpecs({addToArmy :addToArmyprops}) {
   const [botArmy, setBotArmy] = useState([]);
 
   useEffect(() => {
-    fetch(`http://localhost:3001/bots${id}`)
+    fetch(`https://json-server-bots-vgiw.onrender.com/bots/${id}`)
       .then((response) => response.json())
       .then((data) => setBot(data))
       .catch((error) => console.error("Error fetching bot:", error));

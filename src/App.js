@@ -18,7 +18,7 @@ function App() {
   };
 
   useEffect(() => {
-    fetch("http://localhost:3001/bots")
+    fetch("https://json-server-bots-vgiw.onrender.com/bots")
     .then(response => response.json())
     .then(data => setBots(data));
   },[botArmy]);

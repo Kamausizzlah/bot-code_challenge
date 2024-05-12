@@ -18,7 +18,7 @@ function BotCard({ bot, addToArmy, removeFromArmy }) {
   const handleRemove = () => {
     removeFromArmy(bot.id);
   
-    fetch(`http://localhost:3001/bots${bot.id}`, {
+    fetch(`https://json-server-bots-vgiw.onrender.com/bots/${bot.id}`, {
       method: "DELETE",
     })
       .then((response) => {
